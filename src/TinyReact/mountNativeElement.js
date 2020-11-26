@@ -1,6 +1,10 @@
 import createDOMElement from './createDOMElement'
+import unmountElement from './unmountElement'
 
-export default function mountNativeElement (virtualDOM, container) {
+export default function mountNativeElement (virtualDOM, container, oldDOM) {
+  if(oldDOM){
+    unmountElement(oldDOM)
+  }
   // 创建DOM
   let newElement = createDOMElement(virtualDOM)
 

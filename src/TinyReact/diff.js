@@ -3,9 +3,11 @@ import mountElement from './mountElement'
 import updateNodeElement from './updateNodeElement'
 import updateTextNode from './updateTextNode'
 import unmountElement from './unmountElement'
+import diffComponent from './diffComponent'
 
 export default function diff (virtualDOM, container, oldDOM) {
   let oldVirtualDOM = oldDOM && oldDOM._virtualDOM
+  let oldComponent = oldVirtualDOM && oldVirtualDOM.component  
   // 如果旧DOM 不存在
   if (!oldDOM) {
     mountElement(virtualDOM, container)
@@ -31,6 +33,10 @@ export default function diff (virtualDOM, container, oldDOM) {
         unmountElement(oldChildNodes[index])
       }
     } 
+
+  } else if (virtualDOM && typeof virtualDOM.type === 'function') {
+    // 是组件的情况
+    diffComponent(virtualDOM, oldComponent, oldDOM, container)
 
   } else if(oldVirtualDOM && virtualDOM.type !== oldVirtualDOM.type && typeof oldVirtualDOM.type !== 'function') {
     // 节点类型不同， 并且不是 组件

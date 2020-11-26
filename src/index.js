@@ -43,7 +43,7 @@ const Hello = () => {
 const Heart = (props) => {
   return <div>
     <h1>{props.title}&hearts;</h1>
-    <Hello/>
+    {/* <Hello/> */}
   </div>
 }
 
@@ -63,6 +63,16 @@ class Alert extends TinyReact.Component {
       title: 'changed-----title'
     })
   }
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps');
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('componentWillUpdate');
+  }
+  componentDidUpdate(prevProps, preState) {
+    console.log('componentDidUpdate');
+  }
 
   render () {
     console.log(this.state.title);
@@ -74,4 +84,32 @@ class Alert extends TinyReact.Component {
     </div>
   }
 }
-TinyReact.render(<Alert name="Hello-LT" age="25" />,  document.getElementById('root'))
+// TinyReact.render(<Alert name="Hello-LT" age="25" />,  document.getElementById('root'))
+// setTimeout(()=>{
+//   TinyReact.render(<Alert name="world-Tng" age="99" />,  document.getElementById('root'))
+//   // TinyReact.render(<Heart title="Hello-LT" />,  document.getElementById('root'))
+// },1500)
+
+
+
+class DemoRef extends TinyReact.Component {
+  handle() {
+    let value = this.input.value
+    console.log(value)
+    console.log(this.alert)
+  }
+  componentDidMount() {
+    console.log("componentDidMount")
+  }
+  render() {
+    return (
+      <div>
+        <input type="text" ref={input => (this.input = input)} />
+        <button onClick={this.handle.bind(this)}>按钮</button>
+        <Alert ref={alert => (this.alert = alert)} name="world-Tng" age="99" />
+      </div>
+    )
+  }
+}
+
+TinyReact.render(<DemoRef name="Hello-LT" age="25" />,  document.getElementById('root'))

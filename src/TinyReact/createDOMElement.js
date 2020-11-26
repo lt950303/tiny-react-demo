@@ -14,6 +14,11 @@ export default function createDOMElement (virtualDOM) {
   }
 
   newElement._virtualDOM = virtualDOM
+
+  // DOM 上有 ref 属性， 就将 DOM 传递给该属性绑定的方法
+  if(virtualDOM.props && virtualDOM.props.ref) {
+    virtualDOM.props.ref(newElement)
+  }
   
   // 渲染子节点
   if (virtualDOM.children) {
