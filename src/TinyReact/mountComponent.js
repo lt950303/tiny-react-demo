@@ -7,10 +7,10 @@ export default function mountComponent (virtualDOM, container, oldDOM) {
   let nextVirtualDOM = null
   let component = null
   if (isFunctionComponent(virtualDOM)) {
-    console.log('函数组件');
+    // console.log('函数组件');
     nextVirtualDOM = buildFunctionComponent(virtualDOM)
   } else {
-    console.log('类组件');
+    // console.log('类组件');
     nextVirtualDOM = buildClassComponent(virtualDOM)
     component = nextVirtualDOM.component
   }
